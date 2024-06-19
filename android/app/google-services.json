@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "895879314407",
+    "project_id": "pawpoint-8fbfe",
+    "storage_bucket": "pawpoint-8fbfe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895879314407:android:88d5bad47a92cffc531b42",
+        "android_client_info": {
+          "package_name": "com.heonrim.pawpoint"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4K6mgB1NtzLKdFZqg2V4k0eZTvJ9CnLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
