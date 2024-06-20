@@ -1,34 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import '../services/auth_service.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('PawPoint'),
+        title: const Text('PawPoint'), // 使用 const
       ),
       body: Center(
         child: ElevatedButton(
           onPressed: () async {
             try {
               await _authService.signInWithGoogle();
-              // 登入成功後導航到主頁面
-              if (FirebaseAuth.instance.currentUser != null) {
-                Navigator.pushReplacementNamed(context, '/home');
-              }
+              if (!mounted) return;
+              // 登錄成功後導航到主頁面
+              Navigator.pushReplacementNamed(context, '/home');
             } catch (error) {
-              print('Login error: $error');
+              // 使用更合適的日誌記錄方法
+              debugPrint('Login error: $error');
+              if (!mounted) return;
               // 顯示錯誤消息給用戶
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Login error: $error'),
+                ),
+              );
             }
           },
-          child: Text('Sign in with Google'),
+          child: const Text('Sign in with Google'), // 使用 const
         ),
       ),
     );

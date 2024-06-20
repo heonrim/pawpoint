@@ -12,7 +12,12 @@
           "package_name": "com.heonrim.pawpoint"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "895879314407-fji24lblhk420ai0kif08r5asuif1cat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB4K6mgB1NtzLKdFZqg2V4k0eZTvJ9CnLg"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895879314407-fji24lblhk420ai0kif08r5asuif1cat.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "895879314407-tch4pfpt3rdrl43r0r8bf5uel3t0pgob.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.heonrim.pawpoint"
+              }
+            }
+          ]
         }
       }
     }
