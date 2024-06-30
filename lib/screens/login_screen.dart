@@ -21,10 +21,16 @@ class _LoginScreenState extends State<LoginScreen> {
         child: ElevatedButton(
           onPressed: () async {
             try {
-              await _authService.signInWithGoogle();
+              bool isFirstTime = await _authService.signInWithGoogle();
               if (!mounted) return;
-              // 登錄成功後導航到主頁面
-              Navigator.pushReplacementNamed(context, '/home');
+
+              if (isFirstTime) {
+                Navigator.pushReplacementNamed(context, '/register');
+                print("First time login (login_screen.dart)");
+              } else {
+                Navigator.pushReplacementNamed(context, '/home');
+                print("Not first time login (login_screen.dart)");
+              }
             } catch (error) {
               // 使用更合適的日誌記錄方法
               debugPrint('Login error: $error');

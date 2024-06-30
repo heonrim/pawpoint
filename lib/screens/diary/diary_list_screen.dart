@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../models/diary_entry.dart';
 import '../../services/diary_service.dart';
+import '../../services/auth_service.dart';
 import 'diary_edit_screen.dart';
 
 class DiaryListScreen extends StatelessWidget {
@@ -9,13 +11,20 @@ class DiaryListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final diaryService = DiaryService();
+    final authService = Provider.of<AuthService>(context);
+    final currentUser = authService.getCurrentUser();
+
+    if (currentUser == null) {
+      // 處理未登入狀況
+      return const Center(child: Text('User not logged in'));
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Diary List'),
       ),
       body: StreamBuilder<List<DiaryEntry>>(
-        stream: diaryService.getDiaryEntries('user_id'), // 替換為實際的用戶ID
+        stream: diaryService.getDiaryEntries(currentUser.uid),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());

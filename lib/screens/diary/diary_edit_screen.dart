@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/diary_entry.dart';
 import '../../services/diary_service.dart';
+import '../../services/auth_service.dart';
 
 class DiaryEditScreen extends StatefulWidget {
   final DiaryEntry? entry;
 
-  const DiaryEditScreen({super.key, this.entry}); // 使用超參數
+  const DiaryEditScreen({super.key, this.entry});
 
   @override
-  DiaryEditScreenState createState() => DiaryEditScreenState(); // 改為公開類
+  DiaryEditScreenState createState() => DiaryEditScreenState();
 }
 
 class DiaryEditScreenState extends State<DiaryEditScreen> {
@@ -31,6 +32,13 @@ class DiaryEditScreenState extends State<DiaryEditScreen> {
   @override
   Widget build(BuildContext context) {
     final diaryService = Provider.of<DiaryService>(context);
+    final authService = Provider.of<AuthService>(context);
+    final currentUser = authService.getCurrentUser();
+
+    if (currentUser == null) {
+      // 處理未登入狀況
+      return const Center(child: Text('User not logged in'));
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -44,7 +52,7 @@ class DiaryEditScreenState extends State<DiaryEditScreen> {
             children: [
               TextFormField(
                 initialValue: _title,
-                decoration: const InputDecoration(labelText: 'Title'), // 使用 const
+                decoration: const InputDecoration(labelText: 'Title'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a title';
@@ -57,7 +65,7 @@ class DiaryEditScreenState extends State<DiaryEditScreen> {
               ),
               TextFormField(
                 initialValue: _content,
-                decoration: const InputDecoration(labelText: 'Content'), // 使用 const
+                decoration: const InputDecoration(labelText: 'Content'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter content';
@@ -69,7 +77,7 @@ class DiaryEditScreenState extends State<DiaryEditScreen> {
                 },
               ),
               SwitchListTile(
-                title: const Text('Public'), // 使用 const
+                title: const Text('Public'),
                 value: _isPublic,
                 onChanged: (value) {
                   setState(() {
@@ -77,7 +85,7 @@ class DiaryEditScreenState extends State<DiaryEditScreen> {
                   });
                 },
               ),
-              const SizedBox(height: 16.0), // 使用 const
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
@@ -85,10 +93,10 @@ class DiaryEditScreenState extends State<DiaryEditScreen> {
 
                     final newEntry = DiaryEntry(
                       id: widget.entry?.id ?? diaryService.getNewEntryId(),
-                      uid: 'user_id', // 替換為實際的用戶ID
+                      uid: currentUser.uid, // 使用實際的用戶ID
                       title: _title,
                       content: _content,
-                      imageUrl: '', // 替換為實際的圖片URL
+                      imageUrl: '',
                       createdAt: DateTime.now(),
                       isPublic: _isPublic,
                     );
