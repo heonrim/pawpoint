@@ -35,6 +35,7 @@ dependencies:
   cloud_firestore:
   firebase_storage:
   firebase_messaging:
+  firebase_app_check:
   google_sign_in: ^6.2.1
   provider:
 

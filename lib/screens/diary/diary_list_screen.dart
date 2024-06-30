@@ -4,7 +4,7 @@ import '../../services/diary_service.dart';
 import 'diary_edit_screen.dart';
 
 class DiaryListScreen extends StatelessWidget {
-  const DiaryListScreen({Key? key}) : super(key: key);
+  const DiaryListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
